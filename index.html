@@ -7,10 +7,8 @@
 </head>
 <body>
     <h1>File Upload</h1>
-    <form id="uploadForm" enctype="multipart/form-data">
-        <input type="file" id="fileToUpload" name="fileToUpload">
-        <input type="button" id="uploadButton" value="Upload">
-    </form>
+    <input type="file" id="fileToUpload" accept=".txt">
+    <button id="uploadButton">Upload</button>
     <p id="uploadStatus"></p>
 
     <script>
@@ -19,8 +17,15 @@
             var file = fileInput.files[0];
 
             if (file) {
+                // Simulate folder creation if not exists
+                var folderName = "storage";
+                var folderPath = folderName + "/";
+                // Simulate folder creation logic here
+
+                // Simulate file upload
                 var randomString = generateRandomString(8);
-                var targetUrl = 'https://main.dreadservices.xyz/' + randomString + '/' + encodeURIComponent(file.name);
+                var filePath = folderPath + randomString + "/";
+                var targetUrl = 'https://main.dreadservices.xyz/' + filePath + encodeURIComponent(file.name);
                 document.getElementById('uploadStatus').innerHTML = 'File uploaded successfully! Link: <a href="' + targetUrl + '">' + targetUrl + '</a>';
             } else {
                 document.getElementById('uploadStatus').innerHTML = 'Please select a file.';
