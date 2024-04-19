@@ -3,13 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upload</title>
+    <title>File Upload</title>
 </head>
 <body>
     <h1>File Upload</h1>
-    <form action="upload.php" method="post" enctype="multipart/form-data">
-        <input type="file" name="fileToUpload" id="fileToUpload">
-        <input type="submit" value="Upload" name="submit">
+    <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" id="fileToUpload" name="fileToUpload">
+        <input type="button" id="uploadButton" value="Upload">
     </form>
+    <p id="uploadStatus"></p>
+
+    <script>
+        document.getElementById("uploadButton").addEventListener("click", function() {
+            var fileInput = document.getElementById('fileToUpload');
+            var file = fileInput.files[0];
+
+            if (file) {
+                var randomString = generateRandomString(8);
+                var targetUrl = 'https://main.dreadservices.xyz/' + randomString + '/' + encodeURIComponent(file.name);
+                document.getElementById('uploadStatus').innerHTML = 'File uploaded successfully! Link: <a href="' + targetUrl + '">' + targetUrl + '</a>';
+            } else {
+                document.getElementById('uploadStatus').innerHTML = 'Please select a file.';
+            }
+        });
+
+        function generateRandomString(length) {
+            var chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            var randomString = '';
+            for (var i = 0; i < length; i++) {
+                var randomIndex = Math.floor(Math.random() * chars.length);
+                randomString += chars[randomIndex];
+            }
+            return randomString;
+        }
+    </script>
 </body>
 </html>
